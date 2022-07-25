@@ -3,6 +3,14 @@
 
 {{#each listOfBooks}}
 
-  <li><a href="/books/{{this._id}}/details">{{this.title}}</a></li>
+  <li>
+    <a href="/books/{{this._id}}/details">{{this.title}}</a>
+
+    <a href="/books/{{this._id}}/edit"><button style="background-color: yellow">U</button></a>
+
+    <form action="/books/{{this._id}}/delete" method="POST" style="display: inline">
+      <button style="background-color: red">X</button>
+    </form>
+  </li>
 
 {{/each}}

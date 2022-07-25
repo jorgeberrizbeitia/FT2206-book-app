@@ -7,3 +7,12 @@
 <p>Description: {{bookDetails.description}}</p>
 <p>Author: {{bookDetails.author}}</p>
 
+<a href="/books/{{bookDetails._id}}/edit"><button>Ir a Editar</button></a>
+
+<form action="/books/{{bookDetails._id}}/delete" method="POST">
+  <button>Borrar Libro</button>
+</form>
+
+{{!-- <a href="/books/{{bookDetails._id}}/delete"><button>Borrar Libro</button></a> --}}
+
+
