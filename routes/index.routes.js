@@ -8,4 +8,7 @@ router.get("/", (req, res, next) => {
 const bookRoutes = require("./book.routes.js")
 router.use("/books", bookRoutes)
 
+const authorRoutes = require("./author.routes.js")
+router.use("/author", authorRoutes)
+
 module.exports = router;
