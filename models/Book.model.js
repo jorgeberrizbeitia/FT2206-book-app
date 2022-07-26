@@ -6,7 +6,8 @@ const bookSchema = new Schema({
   author: [{
     type: Schema.Types.ObjectId, // esto será un ID qu aputa a otro documento de la DB
     ref: "Author" // el nombre del Modelo
-  }]
+  }],
+  image: String
 },
 {
   timestamps: true

@@ -15,3 +15,15 @@
   <button>Editar Libro</button>
 
 </form>
+
+<h3>Agrega o cambia imagen del libro</h3>
+
+<form action="/books/{{datosDeLibro._id}}/upload" method="POST" enctype="multipart/form-data">
+  {{!-- enctype="multipart/form-data" NOS PERMITE TRANSMITIR ARCHIVOS POR FORMULARIOS --}}
+
+  <label for="image">Imagen:</label>
+  <input type="file" name="image">
+
+  <button>Agregar/Cambiar Imagen</button>
+
+</form>

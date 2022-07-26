@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Book = require("../models/Book.model.js")
 const Author = require("../models/Author.model.js")
+const uploader = require("../middleware/uploader.js")
 
 // aqui iran nuestras rutas de libros
 // GET "/books" => Listar todos los titulos de los libros
@@ -154,6 +155,31 @@ router.post("/:bookId/delete", async (req, res, next) => {
   } catch (err) {
     next(err)
   }
+})
+
+
+// ! RUTA PARA RECIBIR IMAGEN Y ENVIAR A CLOUDINARY
+// POST "/books/:bookId/upload"
+router.post("/:bookId/upload", uploader.single("image"), (req, res, next) => {
+
+  const {bookId} = req.params
+
+  console.log(req.body)
+
+  // pasar la imagen por cloudinary
+  // recibir el URL => req.file
+  // usar findByIdAndUpdate para guardar el URL
+  console.log(req.file)
+
+  Book.findByIdAndUpdate(bookId, {
+    image: req.file.path
+  })
+  .then(() => {
+    res.redirect(`/books/${bookId}/details`)
+  })
+  .catch((err) => {
+    next(err)
+  })
 })
 
 
