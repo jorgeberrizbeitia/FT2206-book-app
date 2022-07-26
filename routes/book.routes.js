@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Book = require("../models/Book.model.js")
+const Author = require("../models/Author.model.js")
 
 // aqui iran nuestras rutas de libros
 // GET "/books" => Listar todos los titulos de los libros
@@ -41,8 +42,10 @@ router.get("/:bookId/details", (req, res, next) => {
   console.log(bookId) // :id
   // 1. obtener el obj de libro completo
   // .find pero que me retorne un obj
-  Book.findById(bookId)
+  Book.findById(bookId).populate("author")
   .then((bookDetails) => {
+    console.log(bookDetails)
+    // populate
     // 2. hacer vista, render de una vista y le pasamos la data
 
     res.render("book/details.hbs", {
@@ -56,8 +59,18 @@ router.get("/:bookId/details", (req, res, next) => {
 })
 
 // GET "/books/create" => Renderizar el formulario de crear libro
-router.get("/create", (req, res, next) => {
-  res.render("book/add-form.hbs")
+router.get("/create", async (req, res, next) => {
+
+  try {
+    // 1. buscar todos los autores
+    const allAuthors = await Author.find().select("name")
+  
+    // 2. pasarlos a la vista
+    res.render("book/add-form.hbs", {allAuthors})
+  } catch (err) {
+    next(err)
+  }
+
 })
 
 // POST "/books/create" => recibir detalles de un libro y crearlo en la BD
